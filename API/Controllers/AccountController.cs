@@ -38,7 +38,7 @@ public class AccountController(AppDbContext context, ITokenService tokenService)
     [HttpPost("login")]
     public async Task<ActionResult<UserResponseDto>> Login([FromBody] LoginDto loginDto)
     {
-        var user = await context.Users.SingleOrDefaultAsync(u => u.Email == loginDto.Email);
+        var user = await context.Users.SingleOrDefaultAsync(u => u.Email.ToLower() == loginDto.Email.ToLower());
 
         if (user is null)
             return Unauthorized("Invalid Email Address");
