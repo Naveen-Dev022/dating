@@ -1,1 +1,54 @@
-<p>member-detailed works!</p>
+@if (member(); as member) {
+  <div class="flex gap-6 items-start">
+    <!-- Left Sidebar Card -->
+    <div class="card bg-base-100 shadow-xl w-1/4 h-fit overflow-hidden flex flex-col shrink-0">
+      <!-- Image Section -->
+      <div class="flex justify-center pt-4 px-4">
+        <img
+          [src]="member.imageUrl || '/user.png'"
+          alt="image of member"
+          class="rounded-full w-36 h-36 object-cover aspect-square shadow-md"
+        />
+      </div>
+
+      <!-- Card Body -->
+      <div class="card-body p-4 flex flex-col">
+        <!-- Header details -->
+        <div class="flex flex-col items-center text-center">
+          <div class="text-xl font-bold text-primary">
+            {{ member.displayName }}, {{ member.dateOfBirth | age }}
+          </div>
+          <div class="text-sm opacity-70">{{ member.city }}, {{ member.country }}</div>
+        </div>
+
+        <div class="divider my-3"></div>
+
+        <!-- Navigation Links -->
+        <ul class="menu rounded-box w-full text-base p-0">
+          <li><a routerLink="profile" routerLinkActive="text-primary">Profile</a></li>
+          <li><a routerLink="photos" routerLinkActive="text-primary">Photos</a></li>
+          <li><a routerLink="messages" routerLinkActive="text-primary">Messages</a></li>
+        </ul>
+
+        <!-- Action Buttons -->
+        <div class="card-actions justify-between gap-2 mt-6">
+          <button class="btn btn-outline btn-info flex-1">Go back</button>
+          <button class="btn btn-primary flex-1">Like</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Content Area -->
+    <div class="card bg-base-100 w-3/4 p-6">
+      <h3 class="card-title text-3xl text-primary">{{ title() }}</h3>
+
+      <div class="divider"></div>
+
+      <div>
+        <router-outlet />
+      </div>
+    </div>
+  </div>
+} @else {
+  <div>Member not found</div>
+}
